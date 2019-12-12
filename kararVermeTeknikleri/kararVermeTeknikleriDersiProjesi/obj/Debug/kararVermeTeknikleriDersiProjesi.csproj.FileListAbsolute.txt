@@ -1,0 +1,7 @@
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\bin\Debug\kararVermeTeknikleriDersiProjesi.exe.config
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\bin\Debug\kararVermeTeknikleriDersiProjesi.exe
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\bin\Debug\kararVermeTeknikleriDersiProjesi.pdb
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\obj\Debug\kararVermeTeknikleriDersiProjesi.csprojAssemblyReference.cache
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\obj\Debug\kararVermeTeknikleriDersiProjesi.csproj.CoreCompileInputs.cache
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\obj\Debug\kararVermeTeknikleriDersiProjesi.exe
+C:\Users\Berkan\Desktop\5. Dönem Ders Notları\Karar Verme Teknikleri\dersProjesi\kararVermeTeknikleriDersiProjesi\kararVermeTeknikleriDersiProjesi\obj\Debug\kararVermeTeknikleriDersiProjesi.pdb
