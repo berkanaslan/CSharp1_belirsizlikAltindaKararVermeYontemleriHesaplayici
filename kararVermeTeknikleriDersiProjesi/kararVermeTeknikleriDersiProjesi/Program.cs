@@ -13,15 +13,13 @@ namespace kararVermeTeknikleriDersiProjesi
             /*  Karar Verme Teknikleri dersi proje ödevi
              *  Belirsizlik altında karar verme yontemleri
              *  YAZARLAR:   Berkan ASLAN - 20174703014 | info@berkanaslan.com
-             *              Büşra BOYACı - 20174753032 | 
-             *              Rasim Umut Özkurt - 20164753056
              *              netpiksel.com
              */  
 
-            Console.Write("Probleminizdeki OLAY (Alternatif Hareket Birimleri) sayısını giriniz: ");
+            Console.Write("Probleminizdeki ALTERNATİF Hareket Birimleri sayısını giriniz: ");
             int olay = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Probleminizdeki STATE saysını giriniz: ");
+            Console.Write("Probleminizdeki her ALTERNATİF için STATE saysını giriniz: ");
             int state = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Alfa değerini giriniz: ");
@@ -32,6 +30,7 @@ namespace kararVermeTeknikleriDersiProjesi
             double eksiAlfa = 1 - alfa;
             int diziBuyuklugu = olay * state;
             double[,] matris = new double[olay, state];
+            double[,] pismanlikMatrisi = new double[olay, state];
             double[] maximax = new double[diziBuyuklugu];
             double[] minimax = new double[diziBuyuklugu];
             double ebState = 0, ekState = 0, pismanlikState = 0, huwState = 0;
@@ -40,11 +39,11 @@ namespace kararVermeTeknikleriDersiProjesi
 
             double esOlasilikOrani = (1.00 / state);
             double[] pismanlikDizisi = new double[diziBuyuklugu];
-            int pismanlikKonumu = 1;
             int ebStateSiraSayisi = 1;
             int ekStateSiraSayisi = 1;
             int esOlasilikSiraSayisi = 0;
             int hurSiraSayisi = 1;
+            int pismanlikSira = 1;
             double[] hurwicsDizisi = new double[diziBuyuklugu];
             /* OLAY - STATE TABLOSU TASLAK GÖRÜNÜMÜ */
 
@@ -54,7 +53,7 @@ namespace kararVermeTeknikleriDersiProjesi
 
             for (int i = 0; i < olay; i++)
             {
-                Console.Write(i + 1 + ". Olay: ");
+                Console.Write(i + 1 + ". Alternatif: ");
                 for (int j = 0; j < state; j++)
                 {
                     Console.Write(j + 1 + ". State Değeri -- ");
@@ -135,6 +134,8 @@ namespace kararVermeTeknikleriDersiProjesi
             {
                 Console.WriteLine(i + 1 + ". OLAYIN en yüksek STATE değeri: " + maximax[i]);
             }
+
+            Console.WriteLine();
             Console.WriteLine("MAXIMAX yöntemine göre " + ebState + " STATE değeri ile " + ebStateSiraSayisi + ". olay seçilir.");
 
             /* MİNİMAX DEĞERİNİ BULMAK */
@@ -172,6 +173,8 @@ namespace kararVermeTeknikleriDersiProjesi
             {
                 Console.WriteLine(i + 1 + ". OLAYIN en küçük STATE değeri: " + minimax[i]);
             }
+
+            Console.WriteLine();
             Console.WriteLine("MINIMAX yöntemine göre " + ekState + " STATE değeri ile " + ekStateSiraSayisi + ". olay seçilir.");
 
             Console.WriteLine();
@@ -209,6 +212,7 @@ namespace kararVermeTeknikleriDersiProjesi
                 Console.WriteLine(i + 1 + ". OLAY için EŞ OLASILIK değeri: " + esOlasiliklarDizisi[i] * esOlasilikOrani);
             }
 
+            Console.WriteLine();
             /* EŞ OLASILIK SONUCU YAZDIRMAK */
             Console.WriteLine("EŞ OLASILIK yöntemine göre en büyük STATE değeri olan " + esOlasilikKontrol + " değeri ile "+ esOlasilikSiraSayisi+". olay seçilir.");
 
@@ -237,27 +241,59 @@ namespace kararVermeTeknikleriDersiProjesi
             /* KONUMU */
             int huwKonum = Array.IndexOf(hurwicsDizisi, huwState);
             hurSiraSayisi = huwKonum + 1;
-
+            Console.WriteLine();
             Console.WriteLine("HURWICS KRİTERİ yöntemine göre " + huwState + " değeri ile " + hurSiraSayisi + ". olay seçilir.");
 
             /* PİŞMANLIK KRİTERİ */
             Console.WriteLine();
             Console.WriteLine("------------- PİŞMANLIK KRİTERİ -------------");
-            for (int i =0;i<olay;i++)
+
+            /* PİŞMANLIK TABLOSU */
+            for (int i = 0; i < olay; i++)
             {
-                for (int j =0; j<state; j++)
+                Console.WriteLine(i + 1 + ". OLAYIN en yüksek STATE değeri: " + maximax[i]);
+            }
+
+            for (int i=0;i<olay;i++)
+            {
+                for(int j = 0; j<state;j++)
                 {
-                    if (pismanlikDizisi[i] < matris[i, j])
+                    pismanlikMatrisi[i, j] = maximax[i] - matris[i, j];
+                }
+            }
+
+            /* PİŞMANLIK TABLOSU YAZDIRMAK */
+            Console.WriteLine();
+            Console.WriteLine("--- PİŞMANLIK TABLOSU GÖRÜNÜMÜ ---");
+
+            for (int i = 0; i < olay; i++)
+            {
+                Console.Write(i + 1 + ". Alternatif: --- ");
+                for (int j = 0; j < state; j++)
+                {
+                    Console.Write(j + 1 + ". State Değeri: " + pismanlikMatrisi[i, j] + " --- ");
+                }
+                Console.WriteLine();
+            }
+
+            /* EN BÜYÜK DEĞER */
+
+            for (int i = 0; i < olay; i++)
+            {
+                for (int j = 0; j < state; j++)
+                {
+                    if (pismanlikDizisi[i] < pismanlikMatrisi[i, j])
                     {
-                        pismanlikDizisi[i] = matris[i, j];
+                        pismanlikDizisi[i] = pismanlikMatrisi[i, j];
                     }
                 }
             }
 
-            /* SATIRLARIN EN BÜYÜK DEĞERLERİ */
-            for (int i = 0; i < olay;i++)
+            Console.WriteLine();
+            /* PİŞMANLIK TABLOSU */
+            for (int i = 0; i < olay; i++)
             {
-                Console.WriteLine(i + 1 + ". OLAYIN en yüksek STATE değeri: " + pismanlikDizisi[i]);
+                Console.WriteLine("PİŞMANLIK tablosuna göre "+(i + 1) + ". Alternatifin en yüksek değeri: " + pismanlikDizisi[i]);
             }
 
             /* EN KÜÇÜK PİŞMANLIK DEĞERİ VE KONUMU */
@@ -270,20 +306,20 @@ namespace kararVermeTeknikleriDersiProjesi
                 }
             }
 
-            /* KONUMUNU BULMA */
-            int pismanlikSiraSayisi = Array.IndexOf(pismanlikDizisi, pismanlikState);
-            pismanlikKonumu = pismanlikSiraSayisi + 1;
+            /* KONUMU */
+            int pisKonum = Array.IndexOf(pismanlikDizisi, pismanlikState);
+            pismanlikSira = pisKonum + 1;
 
+            Console.WriteLine();
 
             /* PİŞMANLIK KRİTERİ SONUCU YAZDIRMAK */
-            Console.WriteLine("PİŞMANLIK KRİTERİ yöntemine göre " + pismanlikState + " değeri ile " + pismanlikKonumu + ". olay seçilir.");
+            Console.WriteLine("PİŞMANLIK KRİTERİ yöntemine göre " + pismanlikState + " değeri ile " + pismanlikSira + ". olay seçilir.");
 
             Console.WriteLine();
             Console.WriteLine("------------- HESAPLANAN DEĞERLER -------------");
-
-
-
-            Console.WriteLine("Berkan ASLAN - berkanaslan.com | netpiksel.com | info@berkanaslan.com");
+            Console.WriteLine();
+            Console.WriteLine("------------- YAZARLAR -------------");
+            Console.WriteLine("Berkan ASLAN   | 20174703014   | info@berkanaslan.com");
             Console.ReadLine();
         }
 }
